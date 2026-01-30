@@ -116,7 +116,7 @@ OpenIPC FPV ground station for Linux/Windows/macOS.
    ```
     * Other
    ```bash
-   sudo apt install libusb-1.0-0-dev libsodium-dev libopencv-dev xorg-dev libpcap-dev
+   sudo apt install cmake libusb-1.0-0-dev libsodium-dev libopencv-dev xorg-dev libpcap-dev
    ```
     * (Optional) Packing AppImage
    ```bash
