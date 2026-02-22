@@ -73,6 +73,7 @@ private:
     // Helper methods to remove old entries
     void cleanup_old_rssi_data();
     void cleanup_old_snr_data();
+    void cleanup_old_evm_data();
     void cleanup_old_fec_data();
 
     // We store a timestamp for each RSSI entry
@@ -84,6 +85,13 @@ private:
 
     // We store a timestamp for each RSSI entry
     struct SnrEntry {
+        std::chrono::steady_clock::time_point timestamp;
+        int8_t ant1{};
+        int8_t ant2{};
+    };
+
+    // We store a timestamp for each EVM entry
+    struct EvmEntry {
         std::chrono::steady_clock::time_point timestamp;
         int8_t ant1{};
         int8_t ant2{};
@@ -105,6 +113,8 @@ private:
     std::vector<RssiEntry> rssi_data_;
 
     std::vector<SnrEntry> snr_data_;
+
+    std::vector<EvmEntry> evm_data_;
 
     std::vector<FecEntry> fec_data_;
 
