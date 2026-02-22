@@ -627,6 +627,7 @@ void WfbngLink::handle_80211_frame(const Packet &packet) {
         // Update signal quality
         signal_quality_calculator->add_rssi(packet.RxAtrib.rssi[0], packet.RxAtrib.rssi[1]);
         signal_quality_calculator->add_snr(packet.RxAtrib.snr[0], packet.RxAtrib.snr[1]);
+        signal_quality_calculator->add_evm(packet.RxAtrib.evm[0], packet.RxAtrib.evm[1]);
 
 #ifndef _WIN32
         video_aggregator->process_packet(packet.Data.data() + sizeof(ieee80211_header),
