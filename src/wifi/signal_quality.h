@@ -37,6 +37,9 @@ public:
     /// Add a new SNR entry with current timestamp
     void add_snr(int8_t ant1, int8_t ant2);
 
+    /// Add a new SNR entry with current timestamp
+    void add_evm(int8_t ant1, int8_t ant2);
+
     /// Add new FEC entry with current timestamp
     void add_fec(uint32_t p_all, uint32_t p_recovered, uint32_t p_lost);
 
