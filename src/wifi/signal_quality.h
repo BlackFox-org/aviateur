@@ -23,6 +23,7 @@ public:
         int total_last_second;
         int rssi[2];       // Received signal strength indicator
         int snr[2];        // Signal to noice ratio
+        int evm[2];        // EVM
         int link_score[2]; // Based on RSSI and SNR [1000, 2000]
         std::string idr_code;
     };
