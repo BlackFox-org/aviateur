@@ -38,6 +38,14 @@ void SignalQualityCalculator::cleanup_old_snr_data() {
     std::erase_if(snr_data_, [&](const SnrEntry &entry) { return entry.timestamp < cutoff; });
 }
 
+void SignalQualityCalculator::cleanup_old_evm_data() {
+    const auto now = std::chrono::steady_clock::now();
+    const auto cutoff = now - averaging_window_;
+
+    // Erase-remove idiom for data older than cutoff
+    std::erase_if(evm_data_, [&](const EvmEntry &entry) { return entry.timestamp < cutoff; });
+}
+
 void SignalQualityCalculator::cleanup_old_fec_data() {
     const auto now = std::chrono::steady_clock::now();
     const auto cutoff = now - averaging_window_;
@@ -65,6 +73,16 @@ void SignalQualityCalculator::add_snr(int8_t ant1, int8_t ant2) {
     snr_data_.push_back(entry);
 }
 
+void SignalQualityCalculator::add_evm(int8_t ant1, int8_t ant2) {
+    std::lock_guard lock(mutex_);
+
+    EvmEntry entry;
+    entry.timestamp = std::chrono::steady_clock::now();
+    entry.ant1 = ant1;
+    entry.ant2 = ant2;
+    evm_data_.push_back(entry);
+}
+
 SignalQualityCalculator::SignalQuality SignalQualityCalculator::calculate_signal_quality() {
     SignalQuality ret;
     std::lock_guard lock(mutex_);
@@ -72,10 +90,12 @@ SignalQualityCalculator::SignalQuality SignalQualityCalculator::calculate_signal
     // Make sure we clean up old data first
     cleanup_old_rssi_data();
     cleanup_old_snr_data();
+    cleanup_old_evm_data();
     cleanup_old_fec_data();
 
     auto avg_rssi = get_average(rssi_data_);
     auto avg_snr = get_average(snr_data_);
+    auto avg_evm = get_average(evm_data_);
 
     auto [p_recovered, p_lost, p_total] = get_accumulated_fec_data();
 
@@ -87,6 +107,8 @@ SignalQualityCalculator::SignalQuality SignalQualityCalculator::calculate_signal
     ret.rssi[1] = round(avg_rssi.second);
     ret.snr[0] = round(avg_snr.first);
     ret.snr[1] = round(avg_snr.second);
+    ret.evm[0] = std::round(avg_evm.first);
+    ret.evm[1] = std::round(avg_evm.second);
     ret.idr_code = idr_code_;
 
     // RSSI falls in range [0, 126], and we map it from range [0, 126] to [1000, 2000].
