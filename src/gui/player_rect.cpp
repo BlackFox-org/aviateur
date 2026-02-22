@@ -180,6 +180,10 @@ void PlayerRect::custom_ready() {
     fec_label_ = std::make_shared<revector::Label>();
     label_container_->add_child(fec_label_);
     fec_label_->set_font_size(HUD_LABEL_FONT_SIZE);
+    label_container_->add_child(evm0_label_);
+    evm1_label_->set_font_size(HUD_LABEL_FONT_SIZE);
+    label_container_->add_child(evm1_label_);
+    evm1_label_->set_font_size(HUD_LABEL_FONT_SIZE);
 #endif
 
     rx_status_update_timer = std::make_shared<revector::Timer>();
@@ -209,6 +213,8 @@ void PlayerRect::custom_ready() {
                 min_loss = std::min(min_loss, link->get_packet_loss());
             }
             pl_label_->set_text(FTR("packet loss") + ": " + std::to_string(min_loss));
+            evm0_label_->set_text("EVM0: " + std::to_string(GuiInterface::Instance().evm0_field_));
+            evm1_label_->set_text("EVM1: " + std::to_string(GuiInterface::Instance().evm1_field_));
 
             if (GuiInterface::Instance().alink_enabled_) {
                 fec_label_->set_visibility(true);
