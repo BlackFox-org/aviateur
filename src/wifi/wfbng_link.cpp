@@ -496,6 +496,8 @@ void WfbngLink::start_link_quality_thread() {
 
                 const int fec_lvl = fec_controller.value();
                 GuiInterface::Instance().drone_fec_level_ = fec_lvl;
+                GuiInterface::Instance().evm[0] = packet.RxAtrib.evm[0];
+                GuiInterface::Instance().evm[1] = packet.RxAtrib.evm[1];
 
                 // Prepare the TX message
                 snprintf(message + sizeof(len),
