@@ -446,6 +446,8 @@ void WfbngLink::start_link_quality_thread() {
             int best_rssi = std::max(quality.rssi[0], quality.rssi[1]);
             int best_snr = std::max(quality.snr[0], quality.snr[1]);
             int best_link_score = std::max(quality.link_score[0], quality.link_score[1]);
+            int evm1 = quality.evm[0];
+            int evm2 = quality.evm[1];
 
             time_t currentEpoch = time(nullptr);
 
@@ -496,8 +498,8 @@ void WfbngLink::start_link_quality_thread() {
 
                 const int fec_lvl = fec_controller.value();
                 GuiInterface::Instance().drone_fec_level_ = fec_lvl;
-                GuiInterface::Instance().evm[0] = packet.RxAtrib.evm[0];
-                GuiInterface::Instance().evm[1] = packet.RxAtrib.evm[1];
+                GuiInterface::Instance().evm[0] = evm1;
+                GuiInterface::Instance().evm[1] = evm2;
 
                 // Prepare the TX message
                 snprintf(message + sizeof(len),
