@@ -213,8 +213,8 @@ void PlayerRect::custom_ready() {
                 min_loss = std::min(min_loss, link->get_packet_loss());
             }
             pl_label_->set_text(FTR("packet loss") + ": " + std::to_string(min_loss));
-            evm0_label_->set_text("EVM0: " + std::to_string(GuiInterface::Instance().evm0_field_));
-            evm1_label_->set_text("EVM1: " + std::to_string(GuiInterface::Instance().evm1_field_));
+            evm0_label_->set_text("EVM0: " + std::to_string(GuiInterface::Instance().evm[0]));
+            evm1_label_->set_text("EVM1: " + std::to_string(GuiInterface::Instance().evm[1]));
 
             if (GuiInterface::Instance().alink_enabled_) {
                 fec_label_->set_visibility(true);
