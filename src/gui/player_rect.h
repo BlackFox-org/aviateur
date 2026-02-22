@@ -44,6 +44,10 @@ public:
 
     std::shared_ptr<revector::Label> fec_label_;
 
+    std::shared_ptr<revector::Label> evm0_label_;
+
+    std::shared_ptr<revector::Label> evm1_label_;
+
     std::vector<std::shared_ptr<SignalBar>> link_score_bars_;
 
     std::shared_ptr<revector::Label> video_info_label_;
