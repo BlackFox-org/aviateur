@@ -78,8 +78,8 @@ void SignalQualityCalculator::add_evm(int8_t ant1, int8_t ant2) {
 
     EvmEntry entry;
     entry.timestamp = std::chrono::steady_clock::now();
-    entry.ant1 = ant1;
-    entry.ant2 = ant2;
+    entry.ant1 = ((ant1 == -128) ? 127 : std::abs(ant1)) >> 1;
+    entry.ant2 = ((ant2 == -128) ? 127 : std::abs(ant2)) >> 1;
     evm_data_.push_back(entry);
 }
 
