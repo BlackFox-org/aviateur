@@ -106,7 +106,7 @@ private:
     };
 
 private:
-    const std::chrono::seconds averaging_window_{std::chrono::seconds(1)};
+    const std::chrono::seconds averaging_window_{std::chrono::milliseconds(50)};
 
     mutable std::recursive_mutex mutex_;
 
