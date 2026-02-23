@@ -180,8 +180,10 @@ void PlayerRect::custom_ready() {
     fec_label_ = std::make_shared<revector::Label>();
     label_container_->add_child(fec_label_);
     fec_label_->set_font_size(HUD_LABEL_FONT_SIZE);
+    evm0_label_ = std::make_shared<revector::Label>();
     label_container_->add_child(evm0_label_);
     evm0_label_->set_font_size(HUD_LABEL_FONT_SIZE);
+    evm1_label_ = std::make_shared<revector::Label>();
     label_container_->add_child(evm1_label_);
     evm1_label_->set_font_size(HUD_LABEL_FONT_SIZE);
 #endif
