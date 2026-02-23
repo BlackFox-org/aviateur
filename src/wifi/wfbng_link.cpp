@@ -534,7 +534,7 @@ void WfbngLink::start_link_quality_thread() {
                     break;
                 }
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(std::chrono::milliseconds(25));
         }
 
         close(sock_fd);
