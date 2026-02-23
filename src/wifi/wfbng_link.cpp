@@ -460,8 +460,8 @@ void WfbngLink::start_link_quality_thread() {
                      <gs_time>:<link_score>:<link_score>:<fec>:<lost>:<rssi_dB>:<snr_dB>:<num_ants>:<noise_penalty>:<fec_change>:<idr_request_code>
 
                     gs_time: gs clock
-                    link_score: 1000 - 2000 sent twice (already including any penalty)
-                    link_score: 1000 - 2000 sent twice (already including any penalty)
+                    evm1: 0-35
+                    evm2: 0-35
                     fec: instantaneus fec_rec (only used by old fec_rec_pntly now disabled by default)
                     lost: instantaneus lost (not used)
                     rssi_dB: best antenna rssi (for osd)
@@ -502,8 +502,8 @@ void WfbngLink::start_link_quality_thread() {
                          sizeof(message) - sizeof(len),
                          "%ld:%d:%d:%d:%d:%d:%f:0:-1:%d:%s\n",
                          static_cast<long>(currentEpoch),
-                         best_link_score,
-                         best_link_score,
+                         quality.evm[0],
+                         quality.evm[1],
                          quality.recovered_last_second,
                          quality.lost_last_second,
                          best_rssi,
